@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>伪类选择器before、after</title>
+<style type="text/css">
+	*{padding: 0;margin:0;}
+	.container{
+		height: 500px;
+		width:510px; 
+		overflow: hidden;
+		box-shadow: 0px 5px 25px #ccc;
+		margin:30px auto;
+	}
+	.msg_box{
+		width: 500px;
+		height: auto;
+		margin:15px 5px;
+		position: relative;
+	}
+	.pic{
+		height: 100px;
+		width: 100px;
+		border-radius: 50px;
+		display: inline;
+		position: absolute;
+	}
+	.f1{
+		background: url(http://h.hiphotos.baidu.com/image/pic/item/7c1ed21b0ef41bd54a40316353da81cb39db3d12.jpg) no-repeat;
+		left: 5px;
+	}
+	.f2{
+		background: url(http://h.hiphotos.baidu.com/image/pic/item/7c1ed21b0ef41bd54a40316353da81cb39db3d12.jpg) -200px -200px no-repeat;
+		right: 5px;
+		top: 135px;
+	}
+	.f3{
+		background: url(http://h.hiphotos.baidu.com/image/pic/item/7c1ed21b0ef41bd54a40316353da81cb39db3d12.jpg) no-repeat;
+		left: 5px;
+		top: 275px;
+	}
+	.content{
+		max-width:310px;
+		padding: 25px;
+		border-radius: 15px; 
+		line-height: 25px; 
+		position: absolute;
+	}
+	.msg1{left:130px;box-shadow: 0px 5px 25px #ccc;}
+	.msg2{right:130px;top:135px;box-shadow: 0px 5px 25px #ccc;}
+	.msg3{left:130px;top:275px;box-shadow: 0px 5px 25px #ccc;}
+	.msg1:before,.msg3:before{
+		content: "";
+		border:10px solid transparent;
+		border-right-color:#ccc;
+		position: absolute;
+		left: -20px;
+		top: 35px;
+	}
+	.msg2:after{
+		content: "";
+		border:10px solid transparent;
+		border-left-color:#ccc;
+		position: absolute;
+		right: -20px;
+		top: 35px;
+	}
+	.cleat{clear: both;}
+</style>
+</head>
+<body>
+<div class="container">
+	<div class="msg_box">
+		<div class="pic f1"></div>
+		<div class="content msg1">请用又、又来造句，要求越短越好！</div>
+	</div>
+	<div class="msg_box">
+		<div class="content msg2">双！</div>
+		<div class="pic f2"></div>
+	</div>
+	<div class="msg_box">
+		<div class="pic f3"></div>
+		<div class="content msg3">说的好有道理，我居然找不到让你滚出去的理由！</div>
+	</div>
+</div>
+</body>
+</html>
