@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
+<title>模拟消息对话框完整版</title>
+<style type="text/css">
+	ul,li{list-style: none;padding: 0;margin: 0;}
+	.cont{
+		width: 527px;
+		height: 600px;
+		margin:30px auto;
+		overflow: hidden;
+		border: 1px solid #ccc;
+	}
+	#div1{
+		width:527px;
+		height: 499px; 
+		border-bottom: 1px solid #ccc;
+		position: relative;
+		overflow-y:scroll;/* 显示纵向滚动条 */
+	}
+	#ul1>li{
+		margin:10px 0;
+		position: relative;
+		height: auto;
+		width: 510px;
+		min-height: 50px;
+	}
+	#ul1>li:after{
+		content: '.';
+		display: block;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+	.bottom{
+		width: 510px;
+		height: 100px;
+		background: #eee;
+		overflow: hidden;
+		position: relative;
+	}
+	.pic1{
+		width: 80px;
+		height: 80px;
+		float: left;
+		margin: 10px;
+		border-radius:40px;
+		/* overflow: hidden; */
+		background-image: url(http://h.hiphotos.baidu.com/image/pic/item/7c1ed21b0ef41bd54a40316353da81cb39db3d12.jpg);
+		background-position: 0 0;
+	}
+	.pic2{
+		width: 80px;
+		height: 80px;
+		float: left;
+		margin: 10px;
+		border-radius:40px;
+		/* overflow: hidden; */
+		background-image: url(http://h.hiphotos.baidu.com/image/pic/item/7c1ed21b0ef41bd54a40316353da81cb39db3d12.jpg);
+		background-position: -200px -200px;
+	}
+	.fl{float: left;}
+	.text1{
+		width: 300px;
+		height:36px;
+		margin: 30px 0px;
+		border: 1px solid #ccc;
+		overflow: hidden;
+	}
+	.btn2{
+		width: 80px;
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
+		margin: 30px 12px;
+		border: 1px solid #ccc;
+		background: #fff;
+		font-size: 18px;
+		overflow: hidden;
+	}
+/* 消息发送出后，消息框的消息内容和头像的样式 */
+	#ul1 .pic1{
+		width: 100px;
+		height: 100px;
+		/* position: absolute;
+		left: 5px;
+		display: inline; */
+		border-radius: 50px;
+		float: left;
+	}
+	#ul1 .pic2{
+		width: 100px;
+		height: 100px;
+		/* position: absolute;
+		right: 5px;
+		display: inline; */
+		border-radius: 50px;
+		float: right;
+	}
+	/* #div1 li:last-child{
+		max-width: 310px;
+		padding: 20px;
+		border-radius: 15px;
+		line-height: 25px;
+		position: absolute;
+	} */
+	#ul1 span{
+		display: block;
+		/* float: left; */
+		max-width: 300px;
+		height: auto;
+		padding: 20px;
+		margin-top:20px;
+		/* margin-left: 20px; */
+		border-radius: 15px;
+		box-shadow: 0 5px 25px #ccc;
+		line-height: 25px;
+		word-wrap:break-word;/* 字母换行 */
+	}
+	#ul1 .msg1{
+		float: left;
+		margin-left: 15px;
+		/* box-shadow: 0 5px 25px #ccc; */
+	}
+	#ul1 .msg1:before/* ,#ul1 span:before */{
+		content: '';
+		border:10px solid transparent;
+		border-right-color: #ccc;
+		position: absolute;
+		left: 115px;
+		top: 40px; 
+	}
+	#ul1 .msg2{
+		float: right;
+		margin-right: 15px;
+	}
+	#ul1 .msg2:after{
+		content: '';
+		border:10px solid transparent;
+		border-left-color: #ccc;
+		position: absolute;
+		right: 115px;
+		top: 40px;
+	}
+</style>
+</head>
+<body>
+<div class="cont">
+	<div id="div1">
+		<ul id="ul1"></ul>
+	</div>
+	<div class="bottom">
+		<div id="btn1">
+			<div class="pic1"></div>
+		</div>
+		<input id="text1" class="fl text1" type="text">
+		<input id="btn2" class="fl btn2" type="button" value="发送">
+	</div>
+</div>
+<script type="text/javascript">
+	var oUl=document.getElementById('ul1');
+	var oBtn1=document.getElementById('btn1');
+	var oBtn2=document.getElementById('btn2');
+	var oText1=document.getElementById('text1');
+	var oImg=oBtn1.getElementsByTagName('div')[0];
+	var onOff=true;//设置切换开关
+
+	//头像切换
+	oBtn1.onclick=function(){
+		if (onOff) {
+			oImg.className='pic2';//点击btn1时，切换图片，切换开关
+			onOff=false;
+		}
+		else{
+			oImg.className='pic1';
+			onOff=true;
+		};
+	}
+	//点击发送时
+	oBtn2.onclick=function(){
+		if (oText1.value=='') {
+			alert('请输入内容！');
+		}else{
+			oUl.innerHTML=('<li>'+oBtn1.innerHTML+'<span>'+oText1.value+'</span>'+'</li>' )+oUl.innerHTML;
+			oText1.value='';
+			//alert(1);测试
+			for (var i = 0; i < aLi.length; i++) {
+				fnEnd(aLi[i]);//调用给li添加样式的函数
+			};
+		};
+	}
+
+	//给li下的span元素添加样式
+	var aLi=oUl.getElementsByTagName('li');
+	function fnEnd(li){
+		var aDiv=li.getElementsByTagName('div')[0];
+		var aSpan=li.getElementsByTagName('span')[0];
+		if(aDiv.className=='pic1'){
+			aSpan.className='msg1';/*alert(1);*/
+		}else{
+			aSpan.className='msg2';
+		};	
+	}
+	
+	
+	//键盘事件，按回车键发送消息
+	oText1.onkeydown=function(ev){
+		var oEvet=ev||event;//兼容性(火狐)
+		//回车键的键值：13
+		if (oEvet.keyCode==13) {
+			if (oText1.value=='') {
+				alert('请输入内容！');
+			}else{
+				oUl.innerHTML=('<li>'+oBtn1.innerHTML+'<span>'+oText1.value+'</span>'+'</li>' )+oUl.innerHTML;
+				oText1.value='';
+				//alert(1);测试
+				for (var i = 0; i < aLi.length; i++) {
+					fnEnd(aLi[i]);//调用给li添加样式的函数
+				};
+			};
+		};
+	}	
+
+</script>
+</body>
+</html>
