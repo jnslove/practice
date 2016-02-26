@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
+<title>图片切换</title>
+<style type="text/css">
+*{padding: 0;margin:0;}
+a{list-style: none;text-decoration: none;}
+.cont{
+	width: 420px;
+	margin:30px auto;
+	position: relative;
+	overflow: hidden;
+}
+.top{text-align: center;}
+.top input{
+	margin-right: 20px;
+	padding: 10px;
+}
+.top p{
+	height: 30px;
+	line-height: 30px;
+	margin: 20px auto;
+}
+.dis{
+	display: none;
+}
+.bottom{
+	position: relative;
+	border:10px solid #ccc;
+}
+.bottom,.bottom img{
+	width: 400px;
+	height: 400px;
+	overflow: hidden;
+}
+.bottom span,.bottom p{
+	display: block;
+	width: 400px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: #fff;
+	background: #000;
+	position: absolute;
+	left: 0;
+	opacity: 0.5;
+	filter:alpha(opacity=50);
+}
+.bottom span{
+	top: 0;
+}
+.bottom p{
+	bottom: 0;
+}
+#next,#pre{
+	position: absolute;
+	top:170px;
+	color: #fff;
+	width: 60px;
+	height: 60px;
+	text-align: center;
+	font-size: 60px;
+	font-weight: bolder;
+	opacity: 0.5;
+	filter:alpha(opacity=50);
+}
+#next{
+	right: 5px;
+}
+#pre{
+	left: 5px;
+}
+#bottom a:hover{
+	opacity: 0.8;
+	filter:alpha(opacity=80);
+	 background: #000;
+}
+</style>
+<script type="text/javascript">
+window.onload=function(){
+	var oBtn1=document.getElementById('btn1');
+	var oBtn2=document.getElementById('btn2');
+	var oDiv=document.getElementById('top');
+	var oBot=document.getElementById('bottom');
+	var oNext=document.getElementById('next');
+	var oPre=document.getElementById('pre');
+	var aP=oDiv.getElementsByTagName('p');
+	var oSpan=oBot.getElementsByTagName('span')[0];
+	var oText=oBot.getElementsByTagName('p')[0];
+	var oImg=oBot.getElementsByTagName('img')[0];
+
+	var arrUrl=['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg'];
+	var arrTxt=['文字一','文字二','文字三','文字四'];
+	var num=0;
+	var onOff=true;//切换开关
+
+	function Tab(){
+		oSpan.innerHTML=num+1+'/'+arrTxt.length;
+		oText.innerHTML=arrTxt[num];
+		oImg.src=arrUrl[num];
+	}
+	Tab();//初始化函数
+
+	function fnEnd(){
+		oNext.onclick=function(){
+			num++;
+			if (num==arrUrl.length) {
+				if (onOff) {
+					num=0;//num超出图片的个数时，重新回到第一张图片
+				}
+				else{
+					num=arrUrl.length-1;//num超出图片的个数时,num等于图片的个数，弹出提示框
+					alert('已经是最后一张啦！');
+				};
+				
+			};
+			Tab();
+		}
+		oPre.onclick=function(){
+			num--;
+			if (num==-1) {
+				if (onOff) {
+					num=arrUrl.length-1;//重新回到最后一张图片
+				}
+				else{
+					num=0;//num小于0时,num等于0,弹出提示框
+					alert('已经是第一张图片啦！');
+				};	
+			};
+			Tab();
+		}
+	}
+	fnEnd();//初始化函数,默认循环切换
+
+	//循环切换
+	oBtn1.onclick=function(){
+		onOff=true;
+		fnEnd();
+		aP[1].className='dis';//aP[1]隐藏
+		aP[0].className='';
+	}
+	//顺序切换
+	oBtn2.onclick=function(){
+		onOff=false;
+		fnEnd();
+		aP[0].className='dis';//aP[0]隐藏
+		aP[1].className='';
+	}
+
+}
+</script>
+</head>
+<body>
+<div class="cont">
+	<div class="top" id="top">
+		<input id="btn1" type="button" value="循环切换">
+		<input id="btn2" type="button" value="顺序切换">
+		<p>图片可从最后一张跳转到第一张循环切换</p>
+		<p class="dis">图片只能到最后一张或只能到第一张切换</p>
+	</div>
+	<div class="bottom" id="bottom">
+		<img src="img">
+		<span>数量正在计算中</span>
+		<p>文字正在加载中</p>
+		<a id="pre" href="javascript:;"><</a>
+		<a id="next" href="javascript:;">></a>
+	</div>
+</div>
+</body>
+</html>
